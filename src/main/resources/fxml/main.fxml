@@ -16,7 +16,7 @@
             </Tab>
             <Tab text="Коефіцієнти кореляції">
                <content>
-                  <fx:include source="correlation.fxml" />
+                  <fx:include source="linear_system.fxml" />
                </content>
             </Tab>
          </tabs>

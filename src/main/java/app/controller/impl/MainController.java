@@ -12,7 +12,7 @@ public class MainController extends AbstractFxmlController implements Initializa
     @Autowired
     private NonlinearEquationsController nonlinearEquationsController;
     @Autowired
-    private CorrelationController correlationController;
+    private LinearSystemController linearSystemController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
