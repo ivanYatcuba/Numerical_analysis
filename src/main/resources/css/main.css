@@ -1,0 +1,73 @@
+
+#mainPane{
+    -fx-background-image: url("/img/bg.jpg");
+}
+/*#img{*/
+    /*-fx-padding: 11;*/
+    /*-fx-background-color: black;*/
+/*}*/
+/*#red{*/
+    /*-fx-background-image: url("../img/Red.png");*/
+    /*-fx-background-repeat: no-repeat;*/
+    /*-fx-background-position: center;*/
+/*}*/
+
+/*#refresh {*/
+    /*-fx-background-image: url("../img/refresh.png");*/
+    /*-fx-background-repeat: no-repeat;*/
+    /*-fx-background-position: center;*/
+    /*-fx-background-size: cover;*/
+/*}*/
+
+/*.button  {*/
+    /*-fx-background-color:*/
+        /*#000000,*/
+        /*linear-gradient(#7ebcea, #2f4b8f),*/
+        /*linear-gradient(#426ab7, #263e75),*/
+        /*linear-gradient(#395cab, #223768);*/
+    /*-fx-background-insets: 0,1,2,3;*/
+    /*-fx-background-radius: 3,2,2,2;*/
+    /*-fx-text-fill: white;*/
+    /*-fx-font-size: 12px;*/
+/*}*/
+
+/*.button:hover {*/
+    /*-fx-background-color:*/
+        /*#000000,*/
+        /*linear-gradient(#7ebcea, #426ab7),*/
+        /*linear-gradient(#426ab7, #426ab7),*/
+        /*linear-gradient(#395cab, #426ab7);*/
+    /*-fx-background-insets: 0,1,2,3;*/
+    /*-fx-background-radius: 3,2,2,2;*/
+    /*-fx-text-fill: white;*/
+    /*-fx-font-size: 12px;*/
+/*}*/
+
+/*#sem2 {*/
+    /*-fx-background-color:*/
+    /*#000000,linear-gradient(rgba(255, 0, 7, 0.92), #9a1800);*/
+    /*-fx-background-insets: 0,1,2,3;*/
+    /*-fx-background-radius: 3,2,2,2;*/
+    /*-fx-text-fill: white;*/
+    /*-fx-font-size: 12px;*/
+/*}*/
+
+/*#sem2:hover {*/
+    /*-fx-background-color:*/
+    /*#000000,linear-gradient(rgba(255, 0, 7, 0.92), #f62a00);*/
+    /*-fx-background-insets: 0,1,2,3;*/
+    /*-fx-background-radius: 3,2,2,2;*/
+    /*-fx-text-fill: white;*/
+    /*-fx-font-size: 12px;*/
+/*}*/
+/*#classesChart .chart-bar {*/
+    /*-fx-background-color: #263e75;*/
+    /*-fx-border-color: #000000;*/
+    /*-fx-border-width: 0.5;*/
+/*}*/
+
+/*#empFunctionChart .chart-bar {*/
+    /*-fx-background-color: #9a1800;*/
+    /*-fx-border-color: #000000;*/
+    /*-fx-border-width: 0.5;*/
+/*}*/

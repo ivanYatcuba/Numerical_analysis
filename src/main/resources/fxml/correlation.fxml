@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+        <!--fx:id="mainPane"-->
+<TableView fx:id="correlationTableView"  prefHeight="250.0" prefWidth="542.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="app.controller.impl.CorrelationController">
+   <columns>
+      <TableColumn fx:id="correlationName" prefWidth="98.0" />
+      <TableColumn fx:id="correlationValue" prefWidth="84.0" text="Значення" />
+      <TableColumn fx:id="correlationStatistic" prefWidth="97.0" text="Статистика" />
+      <TableColumn fx:id="correlationQuantil" prefWidth="89.0" text="Квантиль" />
+      <TableColumn fx:id="correlationImportance" prefWidth="86.0" text="Знчущість" />
+      <TableColumn fx:id="correlationInterval" prefWidth="87.0" text="Дов. інтервал" />
+   </columns>
+</TableView>
