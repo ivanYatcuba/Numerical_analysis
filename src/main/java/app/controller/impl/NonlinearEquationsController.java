@@ -1,9 +1,14 @@
 package app.controller.impl;
 
-import app.service.NonlinearEquationsCalculator;
-import app.util.lab1.IterationMethodResult;
+import app.calculations.equation.nonlinear.Result;
+import app.calculations.equation.nonlinear.impl.*;
+import app.util.data.Function;
+import app.util.data.NonlinearFunction;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import org.springframework.stereotype.Controller;
@@ -15,32 +20,60 @@ import java.util.ResourceBundle;
 @Controller
 public class NonlinearEquationsController extends AbstractFxmlController implements Initializable {
 
-    public ListView<String> resultList;
-    public Label funcLabel;
+    @FXML
+    private ListView<String> resultList;
 
-    NonlinearEquationsCalculator calculator = new NonlinearEquationsCalculator();
+    @FXML
+    private Label funcLabel;
+
+    @FXML
+    private LineChart<Number, Number> functionChart;
+
+    @FXML
+    private NumberAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
+
+
+    private static final double EPS = 0.00001;
+    private static final double MIN = 1;
+    private static final double MAX = 2;
+
+    private  final Function function = new NonlinearFunction();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        funcLabel.setText(calculator.func.toString());
+        funcLabel.setText(function.toString());
+        functionChart.setLegendVisible(false);
     }
-
 
     public void calculate() {
         resultList.getItems().clear();
 
-        LinkedList<String> resultedLog = new LinkedList<>();
-        resultedLog.add(buildLogAboutResult("Метод половинного деления", calculator.Pol_del()));
-        resultedLog.add(buildLogAboutResult("Метод итераций", calculator.Iter()));
-        resultedLog.add(buildLogAboutResult("Метод Ньютоная", calculator.Nuton()));
-        resultedLog.add(buildLogAboutResult("Метод хорд", calculator.Hord()));
+        final LinkedList<String> resultedLog = new LinkedList<>();
+
+        resultedLog.add(buildLogAboutResult(new HalfDivisionEquationCalculator(EPS, MAX, MIN, function)));
+        resultedLog.add(buildLogAboutResult(new SimpleIterationsEquationCalculator(EPS, MAX, MIN, function)));
+        resultedLog.add(buildLogAboutResult(new NutonEquationCalculator(EPS, MAX, MIN, function)));
+        resultedLog.add(buildLogAboutResult(new ChordEquationCalculator(EPS, MAX, MIN, function)));
 
         resultList.getItems().addAll(resultedLog);
+
+        final XYChart.Series<Number, Number> series = new XYChart.Series<>();
+
+        functionChart.getData().clear();
+        for (float x = -2; x <= 2; x+=0.05f) {
+            series.getData().add(new XYChart.Data<>(x, function.f(x)));
+        }
+        functionChart.getData().add(series);
     }
 
-    private String buildLogAboutResult(String methodName, IterationMethodResult polDelResult) {
-        return methodName +"\n"
-           + "x= " + polDelResult.getResult() + "\n"
-                + "Итераций: " + polDelResult.getNumberIteration();
+    private String buildLogAboutResult(AbstractEquationCalculator abstractEquationCalculator) {
+        final Result result = abstractEquationCalculator.calculate();
+        return abstractEquationCalculator.getName() +"\n" + "x= " + result.getResult() + "\n" + "ітерацій: " + result.getNumberIteration();
     }
+
+
 }

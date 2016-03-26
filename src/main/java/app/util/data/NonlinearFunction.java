@@ -1,6 +1,7 @@
-package app.util.lab1;
+package app.util.data;
 
-public class NonlinearFunction {
+public class NonlinearFunction implements Function {
+
     final int a = 1; //always = 1;
     /**
      * custom variant parameters
@@ -10,28 +11,29 @@ public class NonlinearFunction {
     int d = -3;
 
 
-    public double F(double x) {
+    @Override
+    public double f(double x) {
         return a * x * x * x
                 + b * x * x
                 + c * x
                 + d;
     }
 
+    @Override
     public double dF(double x) {
         return 3 * a * x * x
                 + 2 * b * x
                 + c;
     }
 
-
     /**
      * custom variant formula
-     * F / dF
+     * f / dF
      */
+    @Override
     public double dF2(double x) {
         return 6 * x - 4;
     }
-
 
     @Override
     public String toString() {
