@@ -114,12 +114,12 @@ public class FunctionApproximationController extends AbstractFxmlController impl
 
             MyTableModel tableModel = new MyTableModel(
                     service.xi[i],
-                    service.L_coef.get(i),
-                    service.P_coef.get(i),
-                    service.Q0_coef.get(i),
-                    service.Q1_coef.get(i),
-                    service.Q2_coef.get(i),
-                    service.Q3_coef.get(i)
+                    str(service.L_coef.get(i)),
+                    str(service.P_coef.get(i)),
+                    str(service.Q0_coef.get(i)),
+                    str(service.Q1_coef.get(i)),
+                    str(service.Q2_coef.get(i)),
+                    str(service.Q3_coef.get(i))
             );
 
             tableView.getItems().add(tableModel);
@@ -133,7 +133,13 @@ public class FunctionApproximationController extends AbstractFxmlController impl
         lv.getItems().clear();
 
         for (double aDet : det) {
-            lv.getItems().add(String.valueOf(aDet));
+            lv.getItems().add(String.format("%.4f", aDet));
         }
+    }
+
+
+
+    private String str(double x) {
+        return String.format("%.4f", x);
     }
 }

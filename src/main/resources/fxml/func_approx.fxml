@@ -12,10 +12,10 @@
             <TableColumn fx:id="colX" prefWidth="80.0" text="x"/>
             <TableColumn fx:id="colL3" prefWidth="80.0" text="L3(x)"/>
             <TableColumn fx:id="colP3" prefWidth="80.0" text="P3(x)"/>
+            <TableColumn fx:id="colQ3" prefWidth="80.0" text="Q3(x)"/>
             <TableColumn fx:id="colQ0" prefWidth="80.0" text="Q0(x)"/>
             <TableColumn fx:id="colQ1" prefWidth="80.0" text="Q1(x)"/>
             <TableColumn fx:id="colQ2" prefWidth="80.0" text="Q2(x)"/>
-            <TableColumn fx:id="colQ3" prefWidth="80.0" text="Q3(x)"/>
         </columns>
     </TableView>
     <ListView fx:id="lv" layoutX="38.0" layoutY="293.0" prefHeight="200.0" prefWidth="200.0"
