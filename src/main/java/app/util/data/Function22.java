@@ -1,15 +1,12 @@
 package app.util.data;
 
-public class NonlinearFunction implements Function {
+public class Function22 implements Function {
 
-    final int a = 1; //always = 1;
-    /**
-     * custom variant parameters
-     */
-    int b = -1;
-    int c = 2;
-    int d = -3;
+    final int a = 1;
 
+    int b = -2;
+    int c = 3;
+    int d = -4;
 
     @Override
     public double f(double x) {
@@ -26,13 +23,14 @@ public class NonlinearFunction implements Function {
                 + c;
     }
 
-    /**
-     * custom variant formula
-     * f / dF
-     */
     @Override
     public double dF2(double x) {
-        return 6 * x - 4;
+        return -1 * x + 3;
+    }
+
+    @Override
+    public double dF3(double x) {
+        return 1;
     }
 
     @Override

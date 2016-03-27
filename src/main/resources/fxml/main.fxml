@@ -3,11 +3,9 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="663.0"
-            xmlns="http://javafx.com/javafx/8" fx:controller="app.controller.impl.MainController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.impl.MainController">
    <children>
-      <TabPane layoutX="0.0" layoutY="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane layoutX="0.0" layoutY="0.0" prefHeight="532.0" prefWidth="728.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
             <Tab text="Нелінійні рівнянь">
                <content>
@@ -21,7 +19,7 @@
             </Tab>
             <Tab text="Наближення функцій">
                <content>
-                  <fx:include source="func_approx.fxml"/>
+                  <fx:include source="func_approx.fxml" />
                </content>
             </Tab>
          </tabs>
