@@ -3,8 +3,8 @@ package app.controller.impl;
 import app.calculations.equation.nonlinear.Result;
 import app.calculations.equation.nonlinear.impl.*;
 import app.model.ShturmaTable;
-import app.util.data.Function;
-import app.util.data.Function22;
+import app.util.data.nonlinear.Function;
+import app.util.data.nonlinear.Function22;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -112,6 +112,7 @@ public class NonlinearEquationsController extends AbstractFxmlController impleme
         final int Nm = Math.abs(zero.getSignChange() - nInf.getSignChange());
         final int Np = Math.abs(pInf.getSignChange() - zero.getSignChange());
 
+        additionalData.clear();
         additionalData.appendText("N=" + N + "\n");
         additionalData.appendText("N-=" + Nm + "\n");
         additionalData.appendText("N+=" + Np + "\n");

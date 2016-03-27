@@ -1,7 +1,7 @@
 package app.calculations.equation.nonlinear.impl;
 
 import app.calculations.equation.nonlinear.NonlinearEquationsCalculator;
-import app.util.data.Function;
+import app.util.data.nonlinear.Function;
 
 public abstract class AbstractEquationCalculator implements NonlinearEquationsCalculator {
 

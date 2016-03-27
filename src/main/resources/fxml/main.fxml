@@ -12,16 +12,14 @@
                   <fx:include source="nonlinear_equations.fxml" />
                </content>
             </Tab>
-            <Tab text="Коефіцієнти кореляції">
-               <content>
-                  <fx:include source="linear_system.fxml" />
-               </content>
+            <Tab text="СЛАР">
+               <fx:include source="linear_system.fxml"/>
             </Tab>
+
             <Tab text="Наближення функцій">
-               <content>
-                  <fx:include source="func_approx.fxml" />
-               </content>
+               <fx:include source="func_approx.fxml"/>
             </Tab>
+
          </tabs>
       </TabPane>
    </children>

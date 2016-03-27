@@ -1,6 +1,6 @@
 package app.calculations.equation.nonlinear;
 
-import app.util.data.Function;
+import app.util.data.nonlinear.Function;
 
 public interface NonlinearEquationsCalculator {
 

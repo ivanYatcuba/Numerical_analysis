@@ -1,6 +1,6 @@
 package app.model;
 
-import app.util.data.Function;
+import app.util.data.nonlinear.Function;
 
 import java.util.LinkedList;
 import java.util.List;

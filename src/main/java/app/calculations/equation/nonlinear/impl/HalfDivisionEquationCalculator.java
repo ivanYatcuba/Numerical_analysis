@@ -1,7 +1,7 @@
 package app.calculations.equation.nonlinear.impl;
 
 import app.calculations.equation.nonlinear.Result;
-import app.util.data.Function;
+import app.util.data.nonlinear.Function;
 
 public class HalfDivisionEquationCalculator extends AbstractEquationCalculator {
 

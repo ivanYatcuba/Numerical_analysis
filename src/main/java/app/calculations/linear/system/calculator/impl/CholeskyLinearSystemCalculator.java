@@ -1,37 +1,48 @@
-package app.service.linearsystem.calculator;
+package app.calculations.linear.system.calculator.impl;
 
-import app.data.LinearSystem;
-import app.service.linearsystem.calculator.generic.HaveSxSyGenericCalculator;
+import app.calculations.linear.system.calculator.MatrixDivisionCalculator;
+import app.dto.SystemSolutionDto;
+import app.util.data.linear.system.LinearSystem;
 
-public class CholeskyDecompositionCalculator extends HaveSxSyGenericCalculator {
+public class CholeskyLinearSystemCalculator extends MatrixDivisionCalculator {
+
+    public CholeskyLinearSystemCalculator(LinearSystem linearSystem) {
+        super(linearSystem);
+    }
+
     @Override
-    public String calculate() {
-        double[][] matrix_A = LinearSystem.FIRST_SYSTEM.newInstanceAMatrix();
-        double[] matrix_F = LinearSystem.FIRST_SYSTEM.newInstanceFMatrix();
+    protected String getMethodName() {
+        return "Метод Холецького";
+    }
 
-        BC bc = createBandCMatrix(matrix_A);
+    @Override
+    public SystemSolutionDto calculate() {
+        double[][] matrix_A = getLinearSystem().newInstanceAMatrix();
+        double[] matrix_F = getLinearSystem().newInstanceFMatrix();
+
+        BC bc = buildBonCMatrix(matrix_A);
         double[][] B = bc.getB();
         double[][] C = bc.getC();
 
         double[] y = St_y(B, matrix_F);
         double[] x = S_x(C, y);
 
-        return buildResult("Метод Холецкого:", matrix_A, matrix_F, x);
+        return buildResult(x);
     }
 
 
-    public BC createBandCMatrix(double[][] matrix_a) {
-        double[][] b = new double[MATRIX_SIZE][MATRIX_SIZE];
-        double[][] c = new double[MATRIX_SIZE][MATRIX_SIZE];
+    public BC buildBonCMatrix(double[][] matrix_a) {
+        double[][] b = new double[EQU_SIZE][EQU_SIZE];
+        double[][] c = new double[EQU_SIZE][EQU_SIZE];
 
-        for (int i = 0; i < MATRIX_SIZE; i++) {
+        for (int i = 0; i < EQU_SIZE; i++) {
             b[i][0] = matrix_a[i][0];
             c[0][i] = matrix_a[0][i] / b[0][0];
             c[i][i] = 1;
         }
 
-        for (int i = 1; i < MATRIX_SIZE; i++) {
-            for (int j = 1; j < MATRIX_SIZE; j++) {
+        for (int i = 1; i < EQU_SIZE; i++) {
+            for (int j = 1; j < EQU_SIZE; j++) {
                 double sum = 0;
                 if (i >= j) {
                     for (int k = 0; k < j; k++) {

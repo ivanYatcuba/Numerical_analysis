@@ -1,7 +1,7 @@
 package app.calculations.equation.nonlinear.impl;
 
 import app.calculations.equation.nonlinear.Result;
-import app.util.data.Function;
+import app.util.data.nonlinear.Function;
 
 public class NutonEquationCalculator extends AbstractEquationCalculator {
 
@@ -17,7 +17,7 @@ public class NutonEquationCalculator extends AbstractEquationCalculator {
     @Override
     public Result calculate() {
 
-        double x = getIntervalMax();
+        double x = 2f/3f;
 
         int iterations = 0;
         double m;

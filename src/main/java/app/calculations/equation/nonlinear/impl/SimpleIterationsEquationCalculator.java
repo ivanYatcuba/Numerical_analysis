@@ -1,7 +1,7 @@
 package app.calculations.equation.nonlinear.impl;
 
 import app.calculations.equation.nonlinear.Result;
-import app.util.data.Function;
+import app.util.data.nonlinear.Function;
 
 public class SimpleIterationsEquationCalculator extends AbstractEquationCalculator {
 
@@ -28,7 +28,7 @@ public class SimpleIterationsEquationCalculator extends AbstractEquationCalculat
 
         m = M = Math.abs(getFunction().dF(x));
         double[] tmp_double = new double[3];
-        tmp_double[0] = Math.abs(M);
+        tmp_double[0] = getFunction().dF(x);
         tmp_double[1] = Math.abs(getFunction().dF(getIntervalMin()));
         tmp_double[2] = Math.abs(getFunction().dF(getIntervalMax()));
 

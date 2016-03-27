@@ -1,4 +1,4 @@
-package app.util.data;
+package app.util.data.nonlinear;
 
 public interface Function {
 
