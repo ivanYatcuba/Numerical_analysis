@@ -1,4 +1,4 @@
-package app.util.lab1;
+package app.dto;
 
 public class IterationMethodResult {
     private double result;

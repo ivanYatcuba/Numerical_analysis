@@ -1,4 +1,4 @@
-package app.util.lab1;
+package app.data;
 
 public class NonlinearFunction {
     final int a = 1; //always = 1;

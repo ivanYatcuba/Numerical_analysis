@@ -1,9 +1,8 @@
 package app.controller.impl;
 
+import app.dto.IterationMethodResult;
 import app.service.NonlinearEquationsCalculator;
-import app.util.lab1.IterationMethodResult;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import org.springframework.stereotype.Controller;
@@ -40,7 +39,12 @@ public class NonlinearEquationsController extends AbstractFxmlController impleme
 
     private String buildLogAboutResult(String methodName, IterationMethodResult polDelResult) {
         return methodName +"\n"
-           + "x= " + polDelResult.getResult() + "\n"
+           + "x= " + round(polDelResult.getResult()) + "\n"
                 + "Итераций: " + polDelResult.getNumberIteration();
+    }
+
+
+    private String round(double value) {
+        return String.format("%.4f", value);
     }
 }

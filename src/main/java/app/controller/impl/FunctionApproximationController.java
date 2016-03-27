@@ -1,6 +1,6 @@
 package app.controller.impl;
 
-import app.model.MyTableModel;
+import app.dto.MyTableModel;
 import app.service.FunctionApproximationService;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;

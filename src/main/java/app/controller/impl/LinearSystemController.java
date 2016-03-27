@@ -1,7 +1,8 @@
 package app.controller.impl;
 
 
-import app.service.LinearSystemService;
+import app.data.LinearSystem;
+import app.service.linearsystem.LinearSystemService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -26,25 +27,19 @@ public class LinearSystemController extends AbstractFxmlController implements In
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tf1.getChildren().add(new Text(
-                "3*x1+x2-x3=2\n" +
-                "x1+x2-4*x3=-6\n" +
-                "-2*x1+4*x2-x3=0\n"));
+        tf1.getChildren().add(new Text(LinearSystem.FIRST_SYSTEM.toString()));
 
-        tf2.getChildren().add(new Text(
-                "x1+3*x2-3*x3=11\n" +
-                "3*x1+10*x2-11*x3=-2\n" +
-                "-3*x1-11*x2-x3=10\n"));
+        tf2.getChildren().add(new Text(LinearSystem.SECOND_SYSTEM.toString()));
     }
 
 
     @FXML
     public void button1Click() {
-        String gauss = linearSystemService.Gauss();
-        String holetskiy = linearSystemService.Holetskiy();
-        String iter = linearSystemService.Iter();
+        String gauss = linearSystemService.gaussianElimination();
+        String holetskiy = linearSystemService.CholeskyDecomposition();
+        String iter = linearSystemService.fixedPointIteration();
 
-        String kv_korn = linearSystemService.Kv_korn();
+        String kv_korn = linearSystemService.squareRootAlgorithms();
 
         gaussView.setText(gauss);
         holetskiyView. setText(holetskiy);

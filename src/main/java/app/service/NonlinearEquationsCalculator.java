@@ -1,7 +1,7 @@
 package app.service;
 
-import app.util.lab1.IterationMethodResult;
-import app.util.lab1.NonlinearFunction;
+import app.data.NonlinearFunction;
+import app.dto.IterationMethodResult;
 
 public class NonlinearEquationsCalculator {
 

@@ -1,6 +1,6 @@
 package app.controller.impl;
 
-import app.model.CauchyModel;
+import app.dto.CauchyModel;
 import app.service.CauchyProblemService;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;

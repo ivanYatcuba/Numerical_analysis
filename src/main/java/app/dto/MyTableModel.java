@@ -1,4 +1,4 @@
-package app.model;
+package app.dto;
 
 public class MyTableModel {
     private final double xi;
