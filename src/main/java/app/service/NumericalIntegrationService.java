@@ -1,9 +1,8 @@
 package app.service;
 
 public class NumericalIntegrationService {
-
-    public double F(double x) //Подынтегральная функция
-    {
+    //Подынтегральная функция
+    public double F(double x) {
         return (x + 1.9) * Math.sin(x / 3);
     }
 

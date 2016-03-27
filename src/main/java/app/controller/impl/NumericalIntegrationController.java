@@ -67,8 +67,8 @@ public class NumericalIntegrationController extends AbstractFxmlController imple
 
         //chart1.Series["series1"].Points.AddXY(x[0], 0);
         //chart1.Series["series2"].Points.AddXY(x[n], 0);
-        //chart1.Series["series1"].Points.AddXY(x[0], F(x[0]));
-        //chart1.Series["series2"].Points.AddXY(x[n], F(x[n]));
+        //chart1.Series["series1"].Points.AddXY(x[0], f(x[0]));
+        //chart1.Series["series2"].Points.AddXY(x[n], f(x[n]));
         XYChart.Series<Number, Number> series0 = new XYChart.Series<>();
         series0.setName("function y=xxcxxc");
         for (int i = 0; i < n + 1; i++) {

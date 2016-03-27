@@ -5,12 +5,12 @@ public class NonlinearFunction {
     /**
      * custom variant parameters
      */
-    int b = -1;
-    int c = 2;
-    int d = -3;
+    int b = -2;
+    int c = -3;
+    int d = -1;
 
 
-    public double F(double x) {
+    public double f(double x) {
         return a * x * x * x
                 + b * x * x
                 + c * x
@@ -26,10 +26,10 @@ public class NonlinearFunction {
 
     /**
      * custom variant formula
-     * F / dF
+     * f / dF
      */
     public double dF2(double x) {
-        return 6 * x - 4;
+        return 26 * x + 15;
     }
 
 

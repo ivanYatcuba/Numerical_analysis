@@ -30,10 +30,10 @@ public class NonlinearEquationsController extends AbstractFxmlController impleme
         resultList.getItems().clear();
 
         LinkedList<String> resultedLog = new LinkedList<>();
-        resultedLog.add(buildLogAboutResult("Метод половинного деления", calculator.Pol_del()));
-        resultedLog.add(buildLogAboutResult("Метод итераций", calculator.Iter()));
-        resultedLog.add(buildLogAboutResult("Метод Ньютоная", calculator.Nuton()));
-        resultedLog.add(buildLogAboutResult("Метод хорд", calculator.Hord()));
+        resultedLog.add(buildLogAboutResult("Метод половинного деления", calculator.calculateHalfDivisionEquation()));
+        resultedLog.add(buildLogAboutResult("Метод итераций", calculator.calculateSimpleIterationsEquation()));
+        resultedLog.add(buildLogAboutResult("Метод Ньютоная", calculator.calculateNutonEquation()));
+        resultedLog.add(buildLogAboutResult("Метод хорд", calculator.calculateChordEquation()));
 
         resultList.getItems().addAll(resultedLog);
     }
