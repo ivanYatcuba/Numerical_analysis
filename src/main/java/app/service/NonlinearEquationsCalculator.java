@@ -16,13 +16,6 @@ public class NonlinearEquationsCalculator {
 
     public NonlinearFunction func = new NonlinearFunction();
 
-    public IterationMethodResult calculateSimpleIterationsEquation() {
-        return calculateSimpleIterationsEquation(min);
-    }
-    public IterationMethodResult calculateNutonEquation() {
-        return calculateNutonEquation(min);
-    }
-
 
     public IterationMethodResult calculateHalfDivisionEquation() {
         int a = 0;
@@ -70,30 +63,21 @@ public class NonlinearEquationsCalculator {
     }
 
 
-
-    private IterationMethodResult calculateSimpleIterationsEquation(double x) {
+    public IterationMethodResult calculateSimpleIterationsEquation() {
         int b = 0;
 
         double m, M;
-        double alph = 0;
-        double tmp_x = x;
+        double alph;
+        double tmp_x = min;
 
-        m = M = Math.abs(func.dF(x));
-        double[] tmp_double = new double[3];
-        tmp_double[0] = Math.abs(M);
-        tmp_double[1] = Math.abs(func.dF(min));
-        tmp_double[2] = Math.abs(func.dF(max));
+        double fByMin = Math.abs(func.dF(min));
+        double fByMax = Math.abs(func.dF(max));
 
-        for (int i = 0; i < 3; i++) {
-            if (tmp_double[i] > M)
-                M = tmp_double[i];
-        }
-        for (int i = 0; i < 3; i++) {
-            if (tmp_double[i] < m)
-                m = tmp_double[i];
-        }
+        M = fByMax > fByMin ? fByMax : fByMin;
+        m = fByMax > fByMin ? fByMin : fByMax;
 
-        while (Math.abs(func.f(tmp_x)) / m > eps) {
+
+        while ((Math.abs(func.f(tmp_x)) / m) > eps) {
 
             if (func.dF(tmp_x) < 0) {
                 alph = -2 / (M + m);
@@ -107,22 +91,23 @@ public class NonlinearEquationsCalculator {
         return new IterationMethodResult(tmp_x, b);
     }
 
-    private IterationMethodResult calculateNutonEquation(double x) {
+    public IterationMethodResult calculateNutonEquation() {
         int c = 0;
-        double m = 0, M = 0;
-        double tmp_x = 0;
-        double x_k = x;
+        double m;
+        double M;
+        double tmp_x;
+        double x_k = min;
 
-        if (Math.abs(func.dF(min)) < Math.abs(func.dF(max))) {
-            m = Math.abs(func.dF(min));
-        } else {
-            m = Math.abs(func.dF(max));
-        }
-        if (Math.abs(func.dF2(min)) < Math.abs(func.dF2(max))) {
-            M = Math.abs(func.dF2(max));
-        } else {
-            M = Math.abs(func.dF2(min));
-        }
+
+        double fByMin = Math.abs(func.dF(min));
+        double fByMax = Math.abs(func.dF(max));
+        m = fByMax > fByMin ? fByMin : fByMax;
+
+        double f2ByMin = Math.abs(func.dF2(min));
+        double f2ByMax = Math.abs(func.dF2(max));
+        M = f2ByMax > f2ByMin ? f2ByMax : f2ByMin;
+
+
 
         tmp_x = x_k - func.f(x_k) / func.dF(x_k);
         while ((M / (2 * m)) * Math.pow(Math.abs(tmp_x - x_k), 2) > eps) {
