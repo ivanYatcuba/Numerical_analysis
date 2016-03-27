@@ -6,8 +6,8 @@ public class NonlinearFunction {
      * custom variant parameters
      */
     int b = -2;
-    int c = -3;
-    int d = -1;
+    int c = 3;
+    int d = -4;
 
 
     public double f(double x) {
@@ -29,7 +29,7 @@ public class NonlinearFunction {
      * f / dF
      */
     public double dF2(double x) {
-        return 26 * x + 15;
+        return 4 * x - 15;
     }
 
 

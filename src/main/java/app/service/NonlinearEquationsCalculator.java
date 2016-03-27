@@ -9,8 +9,8 @@ public class NonlinearEquationsCalculator {
      * NonlinearSettings
      */
     static double eps = 0.00001;
-    static double min = -1;
-    static double max = 0;
+    static double min = 1;
+    static double max = 2;
 
 
 
