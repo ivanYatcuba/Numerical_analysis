@@ -30,10 +30,10 @@ public class NutonEquationCalculator extends AbstractEquationCalculator {
         } else {
             m = Math.abs(getFunction().dF(getIntervalMax()));
         }
-        if (Math.abs(getFunction().dF2(getIntervalMin())) < Math.abs(getFunction().dF2(getIntervalMax()))) {
-            M = Math.abs(getFunction().dF2(getIntervalMax()));
+        if (Math.abs(getFunction().ddF2(getIntervalMin())) < Math.abs(getFunction().ddF2(getIntervalMax()))) {
+            M = Math.abs(getFunction().ddF2(getIntervalMax()));
         } else {
-            M = Math.abs(getFunction().dF2(getIntervalMin()));
+            M = Math.abs(getFunction().ddF2(getIntervalMin()));
         }
 
         tmpX = xK - getFunction().f(xK) / getFunction().dF(xK);

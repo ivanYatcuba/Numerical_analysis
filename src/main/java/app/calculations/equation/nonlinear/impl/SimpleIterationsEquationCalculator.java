@@ -17,7 +17,7 @@ public class SimpleIterationsEquationCalculator extends AbstractEquationCalculat
     @Override
     public Result calculate() {
 
-        double x = getIntervalMax();
+        double x = 2f/3f;
 
         int iterations = 0;
 

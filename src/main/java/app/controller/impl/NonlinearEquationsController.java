@@ -15,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -113,6 +115,16 @@ public class NonlinearEquationsController extends AbstractFxmlController impleme
         additionalData.appendText("N=" + N + "\n");
         additionalData.appendText("N-=" + Nm + "\n");
         additionalData.appendText("N+=" + Np + "\n");
+
+        int A = Collections.max(Arrays.asList(function.getCoefs()));
+
+        int a0 = function.getCoefs()[0];
+
+        int D = 1 + A/a0;
+
+        for(int i=-D; i <= D; i++) {
+            tableView.getItems().add(new ShturmaTable(i, function));
+        }
     }
 
     private String buildLogAboutResult(AbstractEquationCalculator abstractEquationCalculator) {

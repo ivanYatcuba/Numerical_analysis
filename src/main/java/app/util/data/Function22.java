@@ -24,6 +24,11 @@ public class Function22 implements Function {
     }
 
     @Override
+    public double ddF2(double x) {
+        return 6*x - 4;
+    }
+
+    @Override
     public double dF2(double x) {
         return -1 * x + 3;
     }
@@ -31,6 +36,11 @@ public class Function22 implements Function {
     @Override
     public double dF3(double x) {
         return 1;
+    }
+
+    @Override
+    public Integer[] getCoefs() {
+        return new Integer[]{a, b, c};
     }
 
     @Override

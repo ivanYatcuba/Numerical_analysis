@@ -6,8 +6,12 @@ public interface Function {
 
     double dF(double x);
 
+    double ddF2(double x);
+
     double dF2(double x);
 
     double dF3(double x);
+
+    Integer[] getCoefs();
 
 }
