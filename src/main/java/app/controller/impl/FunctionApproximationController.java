@@ -28,7 +28,6 @@ public class FunctionApproximationController extends AbstractFxmlController impl
     public TableColumn<MyTableModel, String> colQ2;
     public TableColumn<MyTableModel, String> colQ3;
 
-
     FunctionApproximationService service = new FunctionApproximationService();
 
 
