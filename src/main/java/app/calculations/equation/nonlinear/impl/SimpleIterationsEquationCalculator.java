@@ -21,7 +21,8 @@ public class SimpleIterationsEquationCalculator extends AbstractEquationCalculat
 
         int iterations = 0;
 
-        double m, M;
+        double m;
+        double M;
         double alpha;
         double tmp_x = x;
 

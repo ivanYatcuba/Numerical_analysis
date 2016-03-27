@@ -58,10 +58,10 @@ public class ShturmaTable {
     }
 
     private String getSign(double val) {
-        if(val > 0) {
-            return PLUS;
+        if(val < 0) {
+            return MINUS;
         }
-        return MINUS;
+        return PLUS;
     }
 
 }
