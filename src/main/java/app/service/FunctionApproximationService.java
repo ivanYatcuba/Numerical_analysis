@@ -1,13 +1,17 @@
 package app.service;
 
+import app.service.linearsystem.calculator.GaussianEliminationCalculator;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FunctionApproximationService {
     public static int SIZE = 4;
 
-    public double[] x = {-2, 0, 2, 3};
-    public double[] y = {3, 4, 1, 2};
+    public final double[] x = {-3, -1, 0, 1};
+    public final double[] y = {3, -2, 0, 3,};
+    private final GaussianEliminationCalculator gaussianCalculator = new GaussianEliminationCalculator();
     public double[] xi = new double[SIZE + 1];
     public List<Double> L_coef = new ArrayList<>();
     public List<Double> P_coef = new ArrayList<>();
@@ -15,7 +19,6 @@ public class FunctionApproximationService {
     public List<Double> Q1_coef = new ArrayList<>();
     public List<Double> Q2_coef = new ArrayList<>();
     public List<Double> Q3_coef = new ArrayList<>();
-
 
     public void CalculateL(double[] xi) {
         L_coef.clear();
@@ -39,39 +42,39 @@ public class FunctionApproximationService {
 
     public void CalculateP(double[] xi) {
         P_coef.clear();
-        double[] f1 = new double[4];
-        double[] f2 = new double[4];
-        double[] f3 = new double[4];
-        double f;
-        double P = 0;
-        f = y[0];
+        final double f = y[0];
+
+        final double[] f1 = new double[4];
         for (int i = 0; i < SIZE - 1; i++) {
             f1[i] = (y[i + 1] - y[i]) / (x[i + 1] - x[i]);
         }
+
+
+        final double[] f2 = new double[4];
         for (int i = 0; i < SIZE - 2; i++) {
             f2[i] = (f1[i + 1] - f1[i]) / (x[i + 2] - x[i]);
         }
+
+        final double[] f3 = new double[4];
         for (int i = 0; i < SIZE - 3; i++) {
             f3[i] = (f2[i + 1] - f2[i]) / (x[i + 3] - x[i]);
         }
 
         for (int i = 0; i < xi.length; i++) {
-            P = f + f1[0] * (xi[i] - x[0]) + f2[0] * (xi[i] - x[0]) * (xi[i] - x[1]) + f3[0] * (xi[i] - x[0]) * (xi[i] - x[1]) * (xi[i] - x[2]);
+            double P = f
+                    + f1[0] * (xi[i] - x[0])
+                    + f2[0] * (xi[i] - x[0]) * (xi[i] - x[1])
+                    + f3[0] * (xi[i] - x[0]) * (xi[i] - x[1]) * (xi[i] - x[2]);
             P_coef.add(P);
         }
-
     }
 
     public void CalculateQ0() {
         Q0_coef.clear();
-        double d, c;
-        d = c = 0;
-        for (int i = 0; i < SIZE; i++) {
-            c++;
-            d += y[i];
-        }
+        double d = Arrays.stream(y).sum();
+
         for (int i = 0; i < xi.length; i++) {
-            Q0_coef.add(d / c);
+            Q0_coef.add(d / SIZE);
         }
     }
 
@@ -79,7 +82,7 @@ public class FunctionApproximationService {
         Q1_coef.clear();
         double[][] c = new double[2][2];
         double[] d = new double[2];
-        double[] a = new double[2];
+
         for (int i = 0; i < SIZE; i++) {
             c[0][0]++;
             c[0][1] += x[i];
@@ -88,7 +91,7 @@ public class FunctionApproximationService {
             d[0] += y[i];
             d[1] += x[i] * y[i];
         }
-        a = Gauss(2, c, d);
+        double[] a = gaussianCalculator.krivoCalculate(c, d, 2);
         for (int i = 0; i < xi.length; i++) {
             Q1_coef.add(a[0] + a[1] * xi[i]);
         }
@@ -99,7 +102,7 @@ public class FunctionApproximationService {
         Q2_coef.clear();
         double[][] c = new double[3][3];
         double[] d = new double[3];
-        double[] a = new double[3];
+
         for (int i = 0; i < SIZE; i++) {
             c[0][0]++;
             c[0][1] += x[i];
@@ -113,7 +116,7 @@ public class FunctionApproximationService {
             d[1] += x[i] * y[i];
             d[2] += x[i] * x[i] * y[i];
         }
-        a = Gauss(3, c, d);
+        double[] a = gaussianCalculator.krivoCalculate(c, d, 3);
         for (double aXi : xi) {
             Q2_coef.add(a[0] + a[1] * aXi + a[2] * Math.pow(aXi, 2));
         }
@@ -124,7 +127,6 @@ public class FunctionApproximationService {
         Q3_coef.clear();
         double[][] c = new double[4][4];
         double[] d = new double[4];
-        double[] a = new double[4];
         for (int i = 0; i < SIZE; i++) {
             c[0][0]++;
             c[0][1] += x[i];
@@ -143,7 +145,7 @@ public class FunctionApproximationService {
             d[2] += x[i] * x[i] * y[i];
             d[3] += x[i] * x[i] * x[i] * y[i];
         }
-        a = Gauss(4, c, d);
+        double[] a = gaussianCalculator.krivoCalculate(c, d, 4);
         for (double aXi : xi) {
             Q3_coef.add(a[0] + a[1] * aXi + a[2] * Math.pow(aXi, 2) + a[3] * Math.pow(aXi, 3));
         }
@@ -194,57 +196,6 @@ public class FunctionApproximationService {
         return det;
     }
 
-
-    private void PryamoiHod(int n, double[][] a, double[] b) {
-        double v;
-        for (int k = 0, i, j, im; k < n - 1; k++) {
-            im = k;
-            for (i = k + 1; i < n; i++) {
-                if (Math.abs(a[im][k]) < Math.abs(a[i][k])) {
-                    im = i;
-                }
-            }
-            if (im != k) {
-                for (j = 0; j < n; j++) {
-                    v = a[im][j];
-                    a[im][j] = a[k][j];
-                    a[k][j] = v;
-                }
-                v = b[im];
-                b[im] = b[k];
-                b[k] = v;
-            }
-            for (i = k + 1; i < n; i++) {
-                v = 1.0 * a[i][k] / a[k][k];
-                a[i][k] = 0;
-                b[i] = b[i] - v * b[k];
-                if (v != 0)
-                    for (j = k + 1; j < n; j++) {
-                        a[i][j] = a[i][j] - v * a[k][j];
-                    }
-            }
-        }
-    }
-
-    private void ObratniHod(int n, double[][] a, double[] b, double[] x) {
-        double s = 0;
-        x[n - 1] = 1.0 * b[n - 1] / a[n - 1][n - 1];
-        for (int i = n - 2, j; 0 <= i; i--) {
-            s = 0;
-            for (j = i + 1; j < n; j++) {
-                s = s + a[i][j] * x[j];
-            }
-            x[i] = 1.0 * (b[i] - s) / a[i][i];
-        }
-    }
-
-    private double[] Gauss(int n, double[][] matrix_A, double[] matrix_F) {
-        double[] x = new double[n];
-        PryamoiHod(n, matrix_A, matrix_F);
-        ObratniHod(n, matrix_A, matrix_F, x);
-        return x;
-
-    }
 
     public void CalculateL() {
         CalculateL(x);
