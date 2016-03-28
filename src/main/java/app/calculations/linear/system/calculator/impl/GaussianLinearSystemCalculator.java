@@ -10,11 +10,17 @@ public class GaussianLinearSystemCalculator extends AbstractLinearSystemCalculat
         super(linearSystem);
     }
 
+    public GaussianLinearSystemCalculator(LinearSystem linearSystem, int equ_size) {
+        super(linearSystem, equ_size);
+    }
+
+
     @Override
     protected String getMethodName() {
         return "Метод Гаусса";
     }
 
+    @Override
     public SystemSolutionDto calculate() {
 
         double[][] matrix_A = getLinearSystem().newInstanceAMatrix();
@@ -27,31 +33,41 @@ public class GaussianLinearSystemCalculator extends AbstractLinearSystemCalculat
         return buildResult(x);
     }
 
+    public double[] calculateRaw() {
+
+        double[][] matrix_A = getLinearSystem().newInstanceAMatrix();
+        double[] matrix_F = getLinearSystem().newInstanceFMatrix();
+
+        goForward(matrix_A, matrix_F);
+
+        return goBackward(matrix_A, matrix_F);
+    }
+
     private void goForward(double[][] matrixA, double[] matrixF) {
 
-        for (int k = 0, j; k < EQU_SIZE - 1; k++) {
+        for (int k = 0, j; k < equ_size - 1; k++) {
             int im = getMaxValueRow(matrixA, k);
 
             if (im != k) {
                 swapTwoCollumn(matrixA, matrixF, k, im);
             }
-            for (int i = k + 1; i < EQU_SIZE; i++) {
+            for (int i = k + 1; i < equ_size; i++) {
                 double dividedCoef = 1.0 * matrixA[i][k] / matrixA[k][k];
                 matrixA[i][k] = 0;
                 matrixF[i] = matrixF[i] - dividedCoef * matrixF[k];
                 if (dividedCoef != 0)
-                    for (j = k + 1; j < EQU_SIZE; j++) {
+                    for (j = k + 1; j < equ_size; j++) {
                         matrixA[i][j] = matrixA[i][j] - dividedCoef * matrixA[k][j];
                     }
             }
         }
     }
     private double[] goBackward(double[][] matrixA, double[] matrixB) {
-        double[] x = new double[EQU_SIZE];
-        x[EQU_SIZE - 1] = 1.0 * matrixB[EQU_SIZE - 1] / matrixA[EQU_SIZE - 1][EQU_SIZE - 1];
-        for (int i = EQU_SIZE - 2, j; 0 <= i; i--) {
+        double[] x = new double[equ_size];
+        x[equ_size - 1] = 1.0 * matrixB[equ_size - 1] / matrixA[equ_size - 1][equ_size - 1];
+        for (int i = equ_size - 2, j; 0 <= i; i--) {
             double s = 0;
-            for (j = i + 1; j < EQU_SIZE; j++) {
+            for (j = i + 1; j < equ_size; j++) {
                 s = s + matrixA[i][j] * x[j];
             }
             x[i] = 1.0 * (matrixB[i] - s) / matrixA[i][i];
@@ -62,7 +78,7 @@ public class GaussianLinearSystemCalculator extends AbstractLinearSystemCalculat
 
     private void swapTwoCollumn(double[][] matrixA, double[] matrixF, int i1, int i2) {
         int j;
-        for (j = 0; j < EQU_SIZE; j++) {
+        for (j = 0; j < equ_size; j++) {
             swap(matrixA, i1, i2, j);
         }
         swap(matrixF, i1, i2);
@@ -83,7 +99,7 @@ public class GaussianLinearSystemCalculator extends AbstractLinearSystemCalculat
 
     private int getMaxValueRow(double[][] matrix, int coll) {
         int im = coll;
-        for (int i = coll + 1; i < EQU_SIZE; i++) {
+        for (int i = coll + 1; i < equ_size; i++) {
             if (Math.abs(matrix[im][coll]) < Math.abs(matrix[i][coll])) {
                 im = i;
             }

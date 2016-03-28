@@ -20,8 +20,8 @@ public class SquareRootLinearSystemCalculator extends MatrixDivisionCalculator {
         double[][] matrix_A = getLinearSystem().newInstanceAMatrix();
         double[] matrix_B = getLinearSystem().newInstanceFMatrix();
 
-        double[][] matrix_S = new double[EQU_SIZE][EQU_SIZE];
-        double[][] matrix_ST = new double[EQU_SIZE][EQU_SIZE];
+        double[][] matrix_S = new double[equ_size][equ_size];
+        double[][] matrix_ST = new double[equ_size][equ_size];
 
 
         matrix_S[0][0] = matrix_A[0][0];
@@ -45,8 +45,8 @@ public class SquareRootLinearSystemCalculator extends MatrixDivisionCalculator {
     }
 
     private void setAsTransposeMatrix(double[][] src, double[][] transResult) {
-        for (int i = 0; i < EQU_SIZE; i++) {
-            for (int j = 0; j < EQU_SIZE; j++) {
+        for (int i = 0; i < equ_size; i++) {
+            for (int j = 0; j < equ_size; j++) {
                 transResult[i][j] = src[j][i];
             }
         }

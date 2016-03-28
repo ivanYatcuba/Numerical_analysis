@@ -5,12 +5,18 @@ import app.util.data.linear.system.LinearSystem;
 
 public abstract class AbstractLinearSystemCalculator implements LinearSystemCalculator {
 
-    public final int EQU_SIZE = 3;
+    public int equ_size;
 
     private LinearSystem linearSystem;
 
+    public AbstractLinearSystemCalculator(LinearSystem linearSystem, int equ_size) {
+        this.linearSystem = linearSystem;
+        this.equ_size = equ_size;
+    }
+
     public AbstractLinearSystemCalculator(LinearSystem linearSystem) {
         this.linearSystem = linearSystem;
+        this.equ_size = 3;
     }
 
     public LinearSystem getLinearSystem() {
@@ -22,7 +28,7 @@ public abstract class AbstractLinearSystemCalculator implements LinearSystemCalc
     protected double multiply(double[][] a, double[] x, int k) {
         double res = 0;
 
-        for (int i = 0; i < EQU_SIZE; i++) {
+        for (int i = 0; i < equ_size; i++) {
             res += a[k][i] * x[i];
         }
         return res;
@@ -33,8 +39,8 @@ public abstract class AbstractLinearSystemCalculator implements LinearSystemCalc
         double[][] matrix_A = getLinearSystem().newInstanceAMatrix();
         double[] matrix_F = getLinearSystem().newInstanceFMatrix();
 
-        double[] sig = new double[EQU_SIZE];
-        for (int i = 0; i < EQU_SIZE; i++) {
+        double[] sig = new double[equ_size];
+        for (int i = 0; i < equ_size; i++) {
             sig[i] = multiply(matrix_A, x, i) - matrix_F[i];
         }
 

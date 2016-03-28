@@ -26,11 +26,11 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
         double[][] matrix_A = getLinearSystem().newInstanceAMatrix();
         double[] matrix_F = getLinearSystem().newInstanceFMatrix();
 
-        double[][] B = new double[EQU_SIZE][EQU_SIZE];
-        double[] g = new double[EQU_SIZE];
+        double[][] B = new double[equ_size][equ_size];
+        double[] g = new double[equ_size];
 
-        for (int i = 0; i < EQU_SIZE; i++) {
-            for (int j = 0; j < EQU_SIZE; j++) {
+        for (int i = 0; i < equ_size; i++) {
+            for (int j = 0; j < equ_size; j++) {
                 if (i == j) {
                     B[i][j] = 0;
                 } else {
@@ -43,8 +43,8 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
         final List<Double> canonicalB = createCanonicalB(B);
 
         double norm_x;
-        double[] previousX = new double[EQU_SIZE];
-        System.arraycopy(g, 0, previousX, 0, EQU_SIZE);
+        double[] previousX = new double[equ_size];
+        System.arraycopy(g, 0, previousX, 0, equ_size);
 
         int iteration = 0;
         do {
@@ -52,7 +52,7 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
 
             norm_x = calculateDifference(previousX, x_k);
 
-            System.arraycopy(x_k, 0, previousX, 0, EQU_SIZE);
+            System.arraycopy(x_k, 0, previousX, 0, equ_size);
             iteration++;
         } while ((canonicalB.get(0) / (1 - canonicalB.get(0)) * norm_x) > EPS);
 
@@ -63,7 +63,7 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
 
     private double calculateDifference(double[] previousX, double[] x_k) {
         double max = 0;
-        for (int i = 0; i < EQU_SIZE; i++) {
+        for (int i = 0; i < equ_size; i++) {
             if (Math.abs(x_k[i] - previousX[i]) > max) {
                 max = Math.abs(x_k[i] - previousX[i]);
             }
@@ -72,8 +72,8 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
     }
 
     private double[] calculateXk(double[][] b, double[] g, double[] x) {
-        double[] x_k = new double[EQU_SIZE];
-        for (int i = 0; i < EQU_SIZE; i++) {
+        double[] x_k = new double[equ_size];
+        for (int i = 0; i < equ_size; i++) {
             x_k[i] = multiply(b, x, i) + g[i];
         }
         return x_k;
@@ -94,8 +94,8 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
 
     private double B3(double[][] b) {
         double sum3 = 0;
-        for (int i = 0; i < EQU_SIZE; i++) {
-            for (int j = 0; j < EQU_SIZE; j++) {
+        for (int i = 0; i < equ_size; i++) {
+            for (int j = 0; j < equ_size; j++) {
                 sum3 += b[i][j] * b[i][j];
             }
         }
@@ -105,9 +105,9 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
     private double B2(double[][] b) {
         double max;
         max = 0;
-        for (int j = 0; j < EQU_SIZE; j++) {
+        for (int j = 0; j < equ_size; j++) {
             double sum2 = 0;
-            for (int i = 0; i < EQU_SIZE; i++) {
+            for (int i = 0; i < equ_size; i++) {
                 sum2 += Math.abs(b[i][j]);
             }
             if ((sum2 > max) && (sum2 < 1)) {
@@ -121,9 +121,9 @@ public class SimpleIterationLinearSystemCalculator extends AbstractLinearSystemC
     private double B1(double[][] b) {
         double max;
         max = 0;
-        for (int i = 0; i < EQU_SIZE; i++) {
+        for (int i = 0; i < equ_size; i++) {
             double sum1 = 0;
-            for (int j = 0; j < EQU_SIZE; j++) {
+            for (int j = 0; j < equ_size; j++) {
                 sum1 += Math.abs(b[i][j]);
             }
             if ((sum1 > max) && (sum1 < 1))

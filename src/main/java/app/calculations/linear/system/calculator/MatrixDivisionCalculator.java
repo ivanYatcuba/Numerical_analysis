@@ -9,11 +9,11 @@ public abstract class MatrixDivisionCalculator extends AbstractLinearSystemCalcu
     }
 
     protected double[] St_y(double[][] matrix, double[] d) {
-        double[] res = new double[EQU_SIZE];
+        double[] res = new double[equ_size];
 
-        for (int i = 0; i < EQU_SIZE; ++i) {
+        for (int i = 0; i < equ_size; ++i) {
             double sum = 0;
-            for (int j = 0; j < EQU_SIZE; j++) {
+            for (int j = 0; j < equ_size; j++) {
                 sum = sum + matrix[i][j] * res[j];
             }
             res[i] = (d[i] - sum) / matrix[i][i];
@@ -23,11 +23,11 @@ public abstract class MatrixDivisionCalculator extends AbstractLinearSystemCalcu
     }
 
     protected double[] S_x(double[][] mat, double[] d) {
-        double[] res = new double[EQU_SIZE];
+        double[] res = new double[equ_size];
 
-        for (int i = EQU_SIZE - 1; i > -1; --i) {
+        for (int i = equ_size - 1; i > -1; --i) {
             double sum = 0;
-            for (int j = 0; j < EQU_SIZE; j++) {
+            for (int j = 0; j < equ_size; j++) {
                 sum = sum + mat[i][j] * res[j];
             }
             res[i] = (d[i] - sum) / mat[i][i];

@@ -32,17 +32,17 @@ public class CholeskyLinearSystemCalculator extends MatrixDivisionCalculator {
 
 
     public BC buildBonCMatrix(double[][] matrix_a) {
-        double[][] b = new double[EQU_SIZE][EQU_SIZE];
-        double[][] c = new double[EQU_SIZE][EQU_SIZE];
+        double[][] b = new double[equ_size][equ_size];
+        double[][] c = new double[equ_size][equ_size];
 
-        for (int i = 0; i < EQU_SIZE; i++) {
+        for (int i = 0; i < equ_size; i++) {
             b[i][0] = matrix_a[i][0];
             c[0][i] = matrix_a[0][i] / b[0][0];
             c[i][i] = 1;
         }
 
-        for (int i = 1; i < EQU_SIZE; i++) {
-            for (int j = 1; j < EQU_SIZE; j++) {
+        for (int i = 1; i < equ_size; i++) {
+            for (int j = 1; j < equ_size; j++) {
                 double sum = 0;
                 if (i >= j) {
                     for (int k = 0; k < j; k++) {
