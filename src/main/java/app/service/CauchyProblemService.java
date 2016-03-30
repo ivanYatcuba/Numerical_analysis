@@ -1,75 +1,73 @@
 package app.service;
 
-import java.util.ArrayList;
 
 public class CauchyProblemService {
-    public static int n = 10;
-    static double a = 1, b = 2;
-    public double[] y = new double[n + 1];
-    double h = (b - a) / n;
+    public static int N = 10;
+    private static double a = 1, b = 2;
 
+    public double[] y = new double[N + 1];
+    private double h = (b - a) / N;
 
-    public ArrayList<Float> getXSteps() {
-        ArrayList<Float> xSteps = new ArrayList<>();
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            xSteps.add(((float) (a + i * h)));
-        }
-
-        return xSteps;
+    public double function(double x, double y) {
+        return (y / x) * Math.log(y / x);
     }
 
-    public double F(double x, double y) {
-        return Math.exp(y) - 2 / x;
+    public void initStartValue() {
+        y[0] = 1;
     }
 
-    public void CalcEller() {
-        double[] x = new double[n + 1];
-        for (int i = 0; i < n + 1; i++) {
-            x[i] = a + i * h;
-        }
-        for (int i = 0; i < n; i++) {
-            y[i + 1] = y[i] + h * F(x[i], y[i]);
-        }
-
-    }
-
-    public void CalcRengeKut() {
-        double[] k1 = new double[n];
-        double[] k2 = new double[n];
-        double[] k3 = new double[n];
-        double[] x = new double[n + 1];
-        for (int i = 0; i < n + 1; i++) {
+    public double[] getXSteps() {
+        double[] x = new double[N + 1];
+        for (int i = 0; i < N + 1; i++) {
             x[i] = a + i * h;
         }
 
-        for (int i = 0; i < n; i++) {
-            k1[i] = h * F(x[i], y[i]);
-            k2[i] = h * F(x[i] + h / 2, y[i] + k1[i] / 2);
-            k3[i] = h * F(x[i] + h, y[i] - k1[i] + 2 * k1[2]);
+        return x;
+    }
+
+    public double[] eulerMethod() {
+        double[] x = getXSteps();
+
+        for (int i = 0; i < N; i++) {
+            y[i + 1] = y[i] + h * function(x[i], y[i]);
+        }
+
+        return y;
+    }
+
+    public double[] rungeKuttaMethod() {
+        double[] k1 = new double[N];
+        double[] k2 = new double[N];
+        double[] k3 = new double[N];
+        double[] x = getXSteps();
+
+        for (int i = 0; i < N; i++) {
+            k1[i] = h * function(x[i], y[i]);
+            k2[i] = h * function(x[i] + h / 2, y[i] + k1[i] / 2);
+            k3[i] = h * function(x[i] + h, y[i] - k1[i] + 2 * k1[2]);
             y[i + 1] = y[i] + (k1[i] + 4 * k2[i] + k3[i]) / 6;
         }
-
-
+        return y;
     }
 
-    public void CalcAdams() {
-        double[] x = new double[n + 1];
-        for (int i = 0; i < n + 1; i++) {
-            x[i] = a + i * h;
+    public double[] adamsMethod() {
+        double[] x = getXSteps();
+
+        for (int i = 3; i < N; i++) {
+            y[i + 1] = y[i] + h / 24 * (55 * function(x[i], y[i]) - 59 * function(x[i - 1], y[i - 1]) + 37 * function(x[i - 2], y[i - 2]) - 9 * function(x[i - 3], y[i - 3]));
         }
-        for (int i = 3; i < n; i++) {
-            y[i + 1] = y[i] + h / 24 * (55 * F(x[i], y[i]) - 59 * F(x[i - 1], y[i - 1]) + 37 * F(x[i - 2], y[i - 2]) - 9 * F(x[i - 3], y[i - 3]));
-        }
+
+        return y;
     }
 
-    public void CalcToch() {
-        double[] x = new double[n + 1];
-        for (int i = 0; i < n + 1; i++) {
-            x[i] = a + i * h;
+    public double[] exactCalculate() {
+        double[] x = getXSteps();
+
+        for (int i = 0; i < N + 1; i++) {
+            y[i] = x[i] * Math.exp(-x[i] + 1);
         }
-        for (int i = 0; i < n + 1; i++) {
-            y[i] = -Math.log(x[i] * (x[i] + 1));
-        }
+
+        return y;
     }
 
 

@@ -1,54 +1,54 @@
 package app.dto;
 
 public class CauchyModel {
-    private float X;
-    private double Ye;
-    private double Yrk;
-    private double Ya;
-    private double YDot;
+    private String X;
+    private String Ye;
+    private String Yrk;
+    private String Ya;
+    private String YDot;
 
-    public CauchyModel(Float x) {
+    public CauchyModel(String x) {
         X = x;
     }
 
 
-    public float getX() {
+    public String getX() {
         return X;
     }
 
-    public void setX(float x) {
+    public void setX(String x) {
         X = x;
     }
 
-    public double getYe() {
+    public String getYe() {
         return Ye;
     }
 
-    public void setYe(double ye) {
+    public void setYe(String ye) {
         Ye = ye;
     }
 
-    public double getYrk() {
+    public String getYrk() {
         return Yrk;
     }
 
-    public void setYrk(double yrk) {
+    public void setYrk(String yrk) {
         Yrk = yrk;
     }
 
-    public double getYa() {
+    public String getYa() {
         return Ya;
     }
 
-    public void setYa(double ya) {
+    public void setYa(String ya) {
         Ya = ya;
     }
 
-    public double getYDot() {
+    public String getYDot() {
         return YDot;
     }
 
-    public void setYDot(double YDot) {
+    public void setYDot(String YDot) {
         this.YDot = YDot;
     }
 }
