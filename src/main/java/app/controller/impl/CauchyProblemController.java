@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 @Controller
@@ -42,54 +41,58 @@ public class CauchyProblemController extends AbstractFxmlController implements I
 
     public void calculate() {
         ArrayList<CauchyModel> items = new ArrayList<>();
-        List<Float> xSteps = service.getXSteps();
+        double[] xSteps = service.getXSteps();
 
         XYChart.Series<Number, Number> series0 = new XYChart.Series<>();
         XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
         XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
         XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
 
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            items.add(new CauchyModel(xSteps.get(i)));
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            items.add(new CauchyModel(String.format("%.2f", xSteps[i])));
         }
 
-        service.y[0] = -Math.log(2);
+        service.initStartValue();
 
-        service.CalcEller();
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            items.get(i).setYe(service.y[i]);
+        service.eulerMethod();
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            items.get(i).setYe(str(service.y[i]));
         }
 
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            series0.getData().add(new XYChart.Data<>(xSteps.get(i), service.y[i]));
+        series0.setName("Ye");
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            series0.getData().add(new XYChart.Data<>(xSteps[i], service.y[i]));
 
         }
-        service.CalcRengeKut();
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            items.get(i).setYrk(service.y[i]);
+        service.rungeKuttaMethod();
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            items.get(i).setYrk(str(service.y[i]));
         }
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            series1.getData().add(new XYChart.Data<>(xSteps.get(i), service.y[i]));
+        series1.setName("Yrk");
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            series1.getData().add(new XYChart.Data<>(xSteps[i], service.y[i]));
 
-        }
-        service.CalcAdams();
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            items.get(i).setYa(service.y[i]);
-        }
-
-
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            series2.getData().add(new XYChart.Data<>(xSteps.get(i), service.y[i]));
-
-        }
-        service.CalcToch();
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            items.get(i).setYDot(service.y[i]);
         }
 
 
-        for (int i = 0; i < CauchyProblemService.n + 1; i++) {
-            series3.getData().add(new XYChart.Data<>(xSteps.get(i), service.y[i]));
+        service.adamsMethod();
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            items.get(i).setYa(str(service.y[i]));
+        }
+
+        series2.setName("Ya");
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            series2.getData().add(new XYChart.Data<>(xSteps[i], service.y[i]));
+
+        }
+        service.exactCalculate();
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            items.get(i).setYDot(str(service.y[i]));
+        }
+
+        series3.setName("Y*");
+        for (int i = 0; i < CauchyProblemService.N + 1; i++) {
+            series3.getData().add(new XYChart.Data<>(xSteps[i], service.y[i]));
         }
 
         tableView.getItems().addAll(items);
@@ -98,5 +101,11 @@ public class CauchyProblemController extends AbstractFxmlController implements I
         chart.getData().add(series1);
         chart.getData().add(series2);
         chart.getData().add(series3);
+    }
+
+
+
+    private String str(double x) {
+        return String.format("%.4f", x);
     }
 }

@@ -1,5 +1,6 @@
 package app.controller.impl;
 
+import app.data.NumericalIntegration;
 import app.service.NumericalIntegrationService;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -25,27 +26,29 @@ public class NumericalIntegrationController extends AbstractFxmlController imple
 
 
     public void calculate() {
-        double a = 1, b = 2;
-        int n = 10;
+        double a = NumericalIntegration.A;
+        double b = NumericalIntegration.B;
+        int n = NumericalIntegration.N;
+
         chart.getData().clear();
 
         String s1 = "Метод прямоугольников: \n"
                 + "Левых: \n"
-                + service.CalcRectangleLeft(a, b, n)
+                + str(service.calculateRectangleLeft(a, b, n))
                 + "\nПравых: \n"
-                + service.CalcRectangleRight(a, b, n)
+                + str(service.calculateRectangleRight(a, b, n))
                 + "\nСредних: \n"
-                + service.CalcRectangleMiddle(a, b, n);
+                + str(service.calculateRectangleMiddle(a, b, n));
 
 
         String s2 = "Метод Гаусса: \n"
-                + service.CalcGauss(a, b, n);
+                + str(service.calculateGaussian(a, b, n));
 
         String s3 = "Метод Симпсона: \n"
-                + service.CalcSimpson(a, b, n);
+                + str(service.calculateSimpson(a, b, n));
 
         String s4 = "Метод трапеций: \n"
-                + service.CalcTrapezoidal(a, b, n);
+                + str(service.calculateTrapezoidal(a, b, n));
 
         lv.getItems().clear();
         lv.getItems().addAll(s1, s2, s3, s4);
@@ -65,18 +68,18 @@ public class NumericalIntegrationController extends AbstractFxmlController imple
         }
 
 
-        //chart1.Series["series1"].Points.AddXY(x[0], 0);
-        //chart1.Series["series2"].Points.AddXY(x[n], 0);
-        //chart1.Series["series1"].Points.AddXY(x[0], f(x[0]));
-        //chart1.Series["series2"].Points.AddXY(x[n], f(x[n]));
         XYChart.Series<Number, Number> series0 = new XYChart.Series<>();
-        series0.setName("function y=xxcxxc");
+        series0.setName("function " + NumericalIntegration.asString());
         for (int i = 0; i < n + 1; i++) {
-            series0.getData().add(new XYChart.Data<>(x[i], service.F(x[i])));
+            series0.getData().add(new XYChart.Data<>(x[i], NumericalIntegration.F(x[i])));
 
         }
 
         chart.getData().add(series0);
 
+    }
+
+    private String str(double x) {
+        return String.format("%.4f", x);
     }
 }
