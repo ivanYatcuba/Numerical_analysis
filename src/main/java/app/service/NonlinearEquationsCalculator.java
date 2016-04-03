@@ -39,8 +39,8 @@ public class NonlinearEquationsCalculator {
     public IterationMethodResult calculateChordEquation() {
         int d = 0;
         double m, M, gamm;
-        double tmp_x = max;
-        double x_k = min;
+
+        double x_k = findX0(min, max);
 
 
         if (Math.abs(func.dF(min)) < Math.abs(func.dF(max))) {
@@ -51,7 +51,8 @@ public class NonlinearEquationsCalculator {
             M = Math.abs(func.dF(min));
         }
         gamm = (m * eps) / (M - m);
-        tmp_x = x_k - (func.f(x_k) / (func.f(max) - func.f(x_k))) * (max - x_k);
+
+        double tmp_x = x_k - (func.f(x_k) / (func.f(max) - func.f(x_k))) * (max - x_k);
 
         while (Math.abs(tmp_x - x_k) > gamm) {
             x_k = tmp_x;
@@ -68,7 +69,7 @@ public class NonlinearEquationsCalculator {
 
         double m, M;
         double alph;
-        double tmp_x = min;
+        double tmp_x = findX0(min, max);
 
         double fByMin = Math.abs(func.dF(min));
         double fByMax = Math.abs(func.dF(max));
@@ -96,7 +97,7 @@ public class NonlinearEquationsCalculator {
         double m;
         double M;
         double tmp_x;
-        double x_k = min;
+        double x_k = findNutonX0(min, max);
 
 
         double fByMin = Math.abs(func.dF(min));
@@ -117,5 +118,26 @@ public class NonlinearEquationsCalculator {
         }
 
         return new IterationMethodResult(tmp_x, c);
+    }
+
+
+    private double findX0(double... startDots) {
+        for (double dot : startDots) {
+            if(func.f(dot) * func.ddF(dot) < 0) {
+                return dot;
+            }
+        }
+
+        return startDots[0];
+    }
+
+    private double findNutonX0(double... startDots) {
+        for (double dot : startDots) {
+            if(func.f(dot) * func.ddF(dot) > 0) {
+                return dot;
+            }
+        }
+
+        return startDots[0];
     }
 }

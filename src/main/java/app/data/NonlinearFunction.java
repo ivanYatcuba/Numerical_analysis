@@ -17,12 +17,22 @@ public class NonlinearFunction {
                 + d;
     }
 
+    /**
+     * f'
+     */
     public double dF(double x) {
         return 3 * a * x * x
                 + 2 * b * x
                 + c;
     }
 
+    /**
+     * f''
+     * */
+    public double ddF(double x) {
+        return 6 * a * x
+                + 2 * b;
+    }
 
     /**
      * custom variant formula
