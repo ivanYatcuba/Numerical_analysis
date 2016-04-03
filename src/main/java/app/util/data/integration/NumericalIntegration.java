@@ -1,16 +1,16 @@
-package app.data;
+package app.util.data.integration;
 
 public class NumericalIntegration {
-    public static double A = -0.5, B = 0.5;
+    public static double A = 0, B = 1;
     public static int N = 10;
 
     //Подынтегральная функция
     public static double F(double x) {
-        return 3*x*x + Math.tan(x);
+        return Math.exp(x) + Math.pow(x, 2) - 1;
     }
 
 
     public static String asString() {
-        return "y = 3*x^2 + tg(x)";
+        return "y = e^x + x^2 - 1";
     }
 }

@@ -1,14 +1,12 @@
 package app.service;
 
-import app.data.NonlinearFunction;
-import app.dto.IterationMethodResult;
 
 public class NonlinearEquationsCalculator {
 
     /**
      * NonlinearSettings
      */
-    static double eps = 0.00001;
+  /*  static double eps = 0.00001;
     static double min = 1;
     static double max = 2;
 
@@ -139,5 +137,5 @@ public class NonlinearEquationsCalculator {
         }
 
         return startDots[0];
-    }
+    }*/
 }

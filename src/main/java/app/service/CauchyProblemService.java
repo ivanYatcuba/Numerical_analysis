@@ -2,6 +2,7 @@ package app.service;
 
 
 public class CauchyProblemService {
+
     public static int N = 10;
     private static double a = 1, b = 2;
 

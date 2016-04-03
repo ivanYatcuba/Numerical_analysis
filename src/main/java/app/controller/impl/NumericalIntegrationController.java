@@ -1,7 +1,8 @@
 package app.controller.impl;
 
-import app.data.NumericalIntegration;
-import app.service.NumericalIntegrationService;
+import app.calculations.integral.IntegralCalculator;
+import app.calculations.integral.impl.*;
+import app.util.data.integration.NumericalIntegration;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
@@ -9,6 +10,8 @@ import javafx.scene.control.ListView;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Controller
@@ -17,8 +20,6 @@ public class NumericalIntegrationController extends AbstractFxmlController imple
     public ListView<String> lv;
     public AreaChart<Number, Number> chart;
 
-    NumericalIntegrationService service = new NumericalIntegrationService();
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -26,38 +27,32 @@ public class NumericalIntegrationController extends AbstractFxmlController imple
 
 
     public void calculate() {
+
         double a = NumericalIntegration.A;
         double b = NumericalIntegration.B;
         int n = NumericalIntegration.N;
 
         chart.getData().clear();
 
-        String s1 = "Метод прямоугольников: \n"
-                + "Левых: \n"
-                + str(service.calculateRectangleLeft(a, b, n))
-                + "\nПравых: \n"
-                + str(service.calculateRectangleRight(a, b, n))
-                + "\nСредних: \n"
-                + str(service.calculateRectangleMiddle(a, b, n));
-
-
-        String s2 = "Метод Гаусса: \n"
-                + str(service.calculateGaussian(a, b, n));
-
-        String s3 = "Метод Симпсона: \n"
-                + str(service.calculateSimpson(a, b, n));
-
-        String s4 = "Метод трапеций: \n"
-                + str(service.calculateTrapezoidal(a, b, n));
+        final List<IntegralCalculator> integralCalculators = new LinkedList<>();
+        integralCalculators.add(new RectangleLeft());
+        integralCalculators.add(new RectangleMiddle());
+        integralCalculators.add(new RectangleRight());
+        integralCalculators.add(new GaussianCalculator());
+        integralCalculators.add(new SimpsonCalculator());
+        integralCalculators.add(new TrapezoidsCalculator());
 
         lv.getItems().clear();
-        lv.getItems().addAll(s1, s2, s3, s4);
 
-        DrawGraph(a, b, n);
+        for (IntegralCalculator integralCalculator: integralCalculators) {
+            lv.getItems().add(integralCalculator.methodName() + ": \t" + integralCalculator.calculate(a, b, n));
+        }
+
+        drawGraph(a, b, n);
     }
 
 
-    private void DrawGraph(double a, double b, int n) {
+    private void drawGraph(double a, double b, int n) {
         double h;
         double[] x = new double[n + 1];
 

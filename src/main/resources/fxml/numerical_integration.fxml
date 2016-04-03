@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" prefHeight="544.0" prefWidth="700.0"
-            xmlns="http://javafx.com/javafx/8" fx:controller="app.controller.impl.NumericalIntegrationController">
-    <children>
-        <ListView fx:id="lv" layoutX="466.0" layoutY="24.0" prefHeight="494.0" prefWidth="217.0"
-                  AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0"/>
-        <Button layoutX="60.0" layoutY="377.0" mnemonicParsing="false" onAction="#calculate" prefHeight="117.0"
-                prefWidth="353.0" text="Розрахувати" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="64.0"
-                AnchorPane.rightAnchor="290.0"/>
-        <AreaChart fx:id="chart" layoutX="35.0" layoutY="22.0" prefHeight="315.0" prefWidth="437.0"
-                   AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="247.0"
-                   AnchorPane.topAnchor="16.0">
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.impl.NumericalIntegrationController">
+   <children>
+        <Button layoutX="212.0" layoutY="290.0" mnemonicParsing="false" onAction="#calculate" prefHeight="33.0" prefWidth="208.0" text="Обчислити" AnchorPane.bottomAnchor="218.0" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="264.0" />
+        <AreaChart fx:id="chart" prefHeight="252.0" prefWidth="666.0" AnchorPane.bottomAnchor="289.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="16.0">
             <xAxis>
-                <NumberAxis side="BOTTOM"/>
+                <NumberAxis side="BOTTOM" />
             </xAxis>
             <yAxis>
-                <NumberAxis side="LEFT"/>
+                <NumberAxis side="LEFT" />
             </yAxis>
         </AreaChart>
-    </children>
-</AnchorPane>
+        <ListView fx:id="lv" layoutX="2.0" layoutY="331.0" prefHeight="187.0" prefWidth="666.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="347.0" />
+   </children>
+</Pane>
